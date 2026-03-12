@@ -1,0 +1,233 @@
+import type { FixedSection } from "../types/section";
+
+export const SECTIONS: FixedSection[] = [
+  {
+    id: "home",
+    title: "Home",
+    layout: "home",
+    eyebrow: "Gal Mankedi",
+    text: "Full-stack developer building React and Node.js products end to end, from polished frontend interfaces to backend APIs and real-time systems.",
+    highlights: ["React + Node.js", "End-to-end product work", "Real-time systems"],
+    cards: [
+      {
+        title: "Current Role",
+        value: "Freelance Web Developer",
+        description: "Shipping production React features and working directly with stakeholders.",
+        colSpan: 6,
+        rowSpan: 3,
+      },
+      {
+        title: "Core Stack",
+        value: "React · Node.js",
+        description: "Frontend architecture, backend APIs, and maintainable end-to-end implementation.",
+        colSpan: 3,
+        rowSpan: 2,
+      },
+      {
+        title: "Strength",
+        value: "Problem Solving",
+        description: "Analytical CS and math thinking applied to practical product engineering.",
+        colSpan: 3,
+        rowSpan: 2,
+      },
+      {
+        title: "Education",
+        value: "Technion (2023-2025)",
+        description: "Mathematics & Computer Science studies, two years completed.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Location",
+        value: "Tel-Aviv Area",
+        description: "Based in the Tel Aviv area and open to freelance or collaborative work.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+    ],
+    minHeightVh: 100,
+  },
+  {
+    id: "about",
+    title: "About",
+    layout: "about",
+    eyebrow: "Profile",
+    text: "I build full-stack web products with clear architecture, clean implementation, and reliable delivery. I am comfortable owning frontend UI, backend APIs, and real-time features.",
+    highlights: ["Analytical CS/Math background", "Architecture + data flow", "Fast learner with strong ownership"],
+    cards: [
+      {
+        title: "Programming Languages",
+        value: "TypeScript · Python · C++",
+        description: "Strong practical coding foundation with emphasis on readable and maintainable code.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Frontend Tools",
+        value: "React · Vite · Tailwind · Zustand",
+        description: "Component architecture, state management, and responsive UI implementation.",
+        colSpan: 4,
+        rowSpan: 3,
+      },
+      {
+        title: "Backend Tools",
+        value: "Node.js · Express · MongoDB · JWT",
+        description: "API design, authentication flows, and scalable server-side structures.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Concepts",
+        value: "Full-Stack Architecture",
+        description: "State management, data flow, REST APIs, and practical debugging.",
+        colSpan: 6,
+        rowSpan: 2,
+      },
+      {
+        title: "Real-Time",
+        value: "WebSockets",
+        description: "Online presence, live messaging, and state-consistent UX patterns.",
+        colSpan: 3,
+        rowSpan: 2,
+      },
+    ],
+    minHeightVh: 106,
+  },
+  {
+    id: "projects",
+    title: "Projects",
+    layout: "projects",
+    eyebrow: "Selected Projects",
+    text: "Selected full-stack projects spanning API design, authentication, real-time communication, and data-heavy frontend interaction.",
+    highlights: ["Interactive data visualization", "REST APIs + JWT auth", "WebSockets"],
+    cards: [
+      {
+        title: "Task Manager with Hierarchy Views",
+        value: "Full-Stack Architecture",
+        description: "Task management system with interactive graph and tree views, REST APIs, authentication, and a D3-powered frontend.",
+        media: {
+          preview: {
+            kind: "video",
+            src: "/media/projects/task-manager-preview.mp4",
+            alt: "Task manager hierarchy workflow demo",
+            mimeType: "video/mp4",
+            width: 2206,
+            height: 1728,
+          },
+        },
+        detailItems: [
+          "JWT-authenticated REST flows for nested task operations",
+          "Interactive graph and tree views for hierarchy-heavy planning",
+          "State-consistent React frontend for dense task data",
+        ],
+        colSpan: 5,
+        rowSpan: 3,
+      },
+      {
+        title: "Chat Application",
+        value: "Real-Time Messaging",
+        description: "WebSocket chat application with online presence and responsive, state-consistent frontend behavior.",
+        detailItems: [
+          "Live presence and message delivery over WebSockets",
+          "Responsive chat surfaces that keep client state in sync",
+          "Backend event flows designed around real-time feedback",
+        ],
+        colSpan: 3,
+        rowSpan: 2,
+      },
+      {
+        title: "Backend",
+        value: "RESTful API Design",
+        description: "Authentication, API contracts, and reliable server flows for full-stack product features.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Data Visualization",
+        value: "D3 Graph + Tree",
+        description: "Built visual hierarchy tools to support planning and decision workflows.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+    ],
+    minHeightVh: 114,
+  },
+  {
+    id: "experience",
+    title: "Experience",
+    layout: "experience",
+    eyebrow: "Work Experience",
+    text: "Experience delivering product work directly with stakeholders, plus high-constraint operational work that strengthened communication and problem solving.",
+    highlights: ["Client-facing delivery", "Stakeholder collaboration", "Constraint-heavy problem solving"],
+    cards: [
+      {
+        title: "Current Role",
+        value: "Freelance Web Developer (Sep 2025 - Present)",
+        description: "Built production React features and delivered upgrades directly with stakeholders.",
+        colSpan: 6,
+        rowSpan: 3,
+      },
+      {
+        title: "Frontend Engineering",
+        value: "Reusable Components + Performance",
+        description: "Built reusable UI components, optimised rendering, and refactored core logic for scalability.",
+        colSpan: 3,
+        rowSpan: 2,
+      },
+      {
+        title: "SmartSchool",
+        value: "Scheduling Specialist (Apr-Sep 2022)",
+        description: "Created complex weekly timetables for 20+ schools under strict constraints.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Client Coordination",
+        value: "Live Problem Solving",
+        description: "Worked in software live while coordinating with clients over Zoom.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+    ],
+    minHeightVh: 108,
+  },
+  {
+    id: "contact",
+    title: "Contact",
+    layout: "contact",
+    eyebrow: "Open to Opportunities",
+    text: "Open to full-time roles, freelance work, and product collaborations. Based in the Tel Aviv area and available in English or Hebrew.",
+    cta: "Email me about a role",
+    highlights: ["Open to freelance work", "Open to full-time roles", "Remote-friendly"],
+    cards: [
+      {
+        title: "Email",
+        value: "galmankedi@gmail.com",
+        description: "Best for recruiter outreach, role details, and project discussions.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Phone",
+        value: "054-206-3980",
+        description: "Best for interview scheduling or a quick follow-up.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+      {
+        title: "Location",
+        value: "Tel-Aviv Area",
+        description: "Open to onsite, hybrid, and remote collaboration models.",
+        colSpan: 4,
+        rowSpan: 2,
+      },
+    ],
+    minHeightVh: 96,
+  },
+];
+
+export const SECTION_NAMES = SECTIONS.map((section) => section.title);
+
+export const DOWN_VISIBLE_TRIGGER_RATIO = 0.25;
+export const UP_VISIBLE_TRIGGER_RATIO = 0.2;
+export const AUTO_SCROLL_DURATION_MS = 850;

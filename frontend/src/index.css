@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+html,
+body {
+  background: #f6efe7;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(223, 193, 136, 0.34);
+  color: #17383a;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(40, 84, 81, 0.56) rgba(246, 239, 231, 0.46);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: rgba(246, 239, 231, 0.44);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(53, 111, 101, 0.82), rgba(207, 171, 103, 0.78));
+  border-radius: 999px;
+  border: 2px solid rgba(246, 239, 231, 0.44);
+}
