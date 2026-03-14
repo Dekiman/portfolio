@@ -1,5 +1,9 @@
 import type { FixedSection } from "../types/section";
 
+function withBase(path: string): string {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+}
+
 export const SECTIONS: FixedSection[] = [
   {
     id: "home",
@@ -115,8 +119,8 @@ export const SECTIONS: FixedSection[] = [
     id: "projects",
     title: "Projects",
     layout: "projects",
-    eyebrow: "Selected Projects",
-    text: "Selected projects across full-stack architecture, real-time communication, data-heavy interfaces, live alerts, and analytical systems.",
+    eyebrow: "Personal Project Gallery",
+    text: "Personal projects built to showcase full-stack architecture, real-time communication, data-heavy interfaces, live alerts, and analytical systems.",
     highlights: [
       "Interactive product UIs",
       "Real-time event-driven systems",
@@ -131,7 +135,7 @@ export const SECTIONS: FixedSection[] = [
         media: {
           preview: {
             kind: "video",
-            src: "/media/projects/task-manager-preview.mp4",
+            src: withBase("media/projects/task-manager-preview.mp4"),
             alt: "Task manager hierarchy workflow demo",
             mimeType: "video/mp4",
             width: 2206,
