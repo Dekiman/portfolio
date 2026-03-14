@@ -13,10 +13,13 @@ export type SectionCardMedia = {
   expanded?: SectionCardMediaAsset;
 };
 
+export type SectionCardKind = "experience-role" | "experience-focus";
+
 export type SectionCard = {
   title: string;
   value: string;
   description: string;
+  kind?: SectionCardKind;
   detailItems?: string[];
   media?: SectionCardMedia;
   colSpan?: number;

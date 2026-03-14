@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
-export function ScrollProgressBar() {
+type ScrollProgressBarProps = {
+  compact?: boolean;
+};
+
+export function ScrollProgressBar({
+  compact = false,
+}: ScrollProgressBarProps) {
   const fillRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -31,7 +37,9 @@ export function ScrollProgressBar() {
     };
 
     const render = () => {
-      fillNode.style.transform = `scaleY(${currentProgress})`;
+      fillNode.style.transform = compact
+        ? `scaleX(${currentProgress})`
+        : `scaleY(${currentProgress})`;
     };
 
     const tick = () => {
@@ -74,10 +82,13 @@ export function ScrollProgressBar() {
         window.cancelAnimationFrame(frameId);
       }
     };
-  }, [prefersReducedMotion]);
+  }, [compact, prefersReducedMotion]);
 
   return (
-    <div className="scroll-progress" aria-hidden="true">
+    <div
+      className={`scroll-progress${compact ? " scroll-progress--compact" : ""}`}
+      aria-hidden="true"
+    >
       <div className="scroll-progress__track">
         <div ref={fillRef} className="scroll-progress__fill" />
       </div>

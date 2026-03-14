@@ -6,12 +6,14 @@ type SectionDeckProps = {
   sections: FixedSection[];
   onSectionRef: SectionRefSetter;
   furthestSectionIndex: number;
+  revealAllSections?: boolean;
 };
 
 export function SectionDeck({
   sections,
   onSectionRef,
   furthestSectionIndex,
+  revealAllSections = false,
 }: SectionDeckProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -23,7 +25,7 @@ export function SectionDeck({
           section={section}
           sectionIndex={index}
           onSectionRef={onSectionRef}
-          isRevealed={prefersReducedMotion || index <= furthestSectionIndex}
+          isRevealed={revealAllSections || prefersReducedMotion || index <= furthestSectionIndex}
         />
       ))}
     </>

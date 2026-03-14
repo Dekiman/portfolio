@@ -1,7 +1,7 @@
 import { useState, type CSSProperties, type JSX } from "react";
 import { TypewriterText } from "../../../Components/TypewriterText";
 import { useCanHover } from "../../../hooks/useCanHover";
-import type { FixedSection, SectionCardMediaAsset, SectionLayout } from "../types/section";
+import type { FixedSection, SectionCard, SectionCardMediaAsset, SectionLayout } from "../types/section";
 
 type SectionLayoutRendererProps = {
   section: FixedSection;
@@ -36,9 +36,25 @@ function getContactHref(title: string, value: string): string | undefined {
   return undefined;
 }
 
-function splitExperienceValue(value: string): { headline: string; period?: string } {
+function looksLikeExperiencePeriod(value: string): boolean {
+  return /(?:present|current|20\d{2}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i.test(value);
+}
+
+function splitExperienceValue(value: string): { headline?: string; period?: string } {
   const match = value.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
   if (!match) {
+    const separatedMatch = value.match(/^(.*?)\s*[·•]\s*(.+)$/);
+    if (separatedMatch && looksLikeExperiencePeriod(separatedMatch[2])) {
+      return {
+        headline: separatedMatch[1].trim(),
+        period: separatedMatch[2].trim(),
+      };
+    }
+
+    if (looksLikeExperiencePeriod(value)) {
+      return { period: value.trim() };
+    }
+
     return { headline: value };
   }
 
@@ -61,6 +77,10 @@ function getExperienceMarkerLabel(index: number, period?: string): string {
   }
 
   return String(index + 1).padStart(2, "0");
+}
+
+function isExperienceFocusCard(card: SectionCard): boolean {
+  return card.kind === "experience-focus";
 }
 
 function renderProjectMediaAsset(media: SectionCardMediaAsset, className: string): JSX.Element {
@@ -265,6 +285,10 @@ function ProjectsLayout({ section }: SectionLayoutRendererProps) {
 }
 
 function ExperienceLayout({ section }: SectionLayoutRendererProps) {
+  const cards = section.cards ?? [];
+  const roleCards = cards.filter((card) => !isExperienceFocusCard(card));
+  const focusCards = cards.filter(isExperienceFocusCard);
+
   return (
     <div className="experience-layout">
       <header className="experience-layout__intro">
@@ -273,34 +297,59 @@ function ExperienceLayout({ section }: SectionLayoutRendererProps) {
         <p className="section-description">{section.text}</p>
       </header>
 
-      <div className="experience-layout__timeline" aria-label={`${section.title} timeline`}>
-        {(section.cards ?? []).map((card, index) => {
-          const { headline, period } = splitExperienceValue(card.value);
-          const isCurrent = index === 0;
-          const markerLabel = getExperienceMarkerLabel(index, period);
+      <div className="experience-layout__body">
+        <div className="experience-layout__timeline" aria-label={`${section.title} workplace timeline`}>
+          {roleCards.map((card, index) => {
+            const { headline, period } = splitExperienceValue(card.value);
+            const isCurrent = index === 0;
+            const markerLabel = getExperienceMarkerLabel(index, period);
+            const hasConnector = index < roleCards.length - 1;
 
-          return (
-            <article
-              key={`${section.id}-${card.title}`}
-              className={`experience-layout__entry${isCurrent ? " experience-layout__entry--current" : ""}`}
-            >
-              <div className="experience-layout__rail" aria-hidden="true">
-                <span className={`experience-layout__node${isCurrent ? " experience-layout__node--current" : ""}`} />
-              </div>
-              <div className="experience-layout__content">
-                <div className="experience-layout__entry-topline">
-                  <p className="experience-layout__entry-title">{card.title}</p>
-                  <span className="experience-layout__entry-step">{markerLabel}</span>
+            return (
+              <article
+                key={`${section.id}-${card.title}`}
+                className={`experience-layout__entry${isCurrent ? " experience-layout__entry--current" : ""}`}
+              >
+                <div className="experience-layout__rail" aria-hidden="true">
+                  <span className={`experience-layout__node${isCurrent ? " experience-layout__node--current" : ""}`} />
+                  {hasConnector ? <span className="experience-layout__connector" /> : null}
                 </div>
-                <div className="experience-layout__entry-header">
-                  <p className="experience-layout__entry-value">{headline}</p>
-                  {period ? <p className="experience-layout__entry-period">{period}</p> : null}
+                <div className="experience-layout__content">
+                  <div className="experience-layout__entry-topline">
+                    <p className="experience-layout__entry-title">{card.title}</p>
+                    <span className="experience-layout__entry-step">{markerLabel}</span>
+                  </div>
+                  {headline ? (
+                    <div className="experience-layout__entry-header">
+                      <p className="experience-layout__entry-value">{headline}</p>
+                      {period ? <p className="experience-layout__entry-period">{period}</p> : null}
+                    </div>
+                  ) : period ? (
+                    <p className="experience-layout__entry-period experience-layout__entry-period--standalone">
+                      {period}
+                    </p>
+                  ) : null}
+                  <p className="experience-layout__entry-description">{card.description}</p>
                 </div>
-                <p className="experience-layout__entry-description">{card.description}</p>
-              </div>
-            </article>
-          );
-        })}
+              </article>
+            );
+          })}
+        </div>
+
+        {focusCards.length > 0 ? (
+          <aside className="experience-layout__focus" aria-label={`${section.title} scope across roles`}>
+            <p className="experience-layout__focus-label">Scope across roles</p>
+            <div className="experience-layout__focus-grid">
+              {focusCards.map((card) => (
+                <article key={`${section.id}-${card.title}`} className="experience-layout__focus-card">
+                  <p className="experience-layout__focus-title">{card.title}</p>
+                  <p className="experience-layout__focus-value">{card.value}</p>
+                  <p className="experience-layout__focus-description">{card.description}</p>
+                </article>
+              ))}
+            </div>
+          </aside>
+        ) : null}
       </div>
     </div>
   );
