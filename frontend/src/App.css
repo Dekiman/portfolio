@@ -1282,6 +1282,21 @@ html {
   max-width: 640px;
 }
 
+.popup-card-modal__copy-wrapper {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(80, 100, 110, 0.3) !important;
+  background:
+    linear-gradient(180deg, rgba(248, 243, 236, 0.16), rgba(248, 243, 236, 0.08)),
+    rgba(80, 100, 110, 0.3) !important;
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+  padding: clamp(20px, 2.6vw, 28px);
+  overflow-y: auto;
+}
+
 .popup-card-modal__copy {
   position: relative;
   z-index: 1;
@@ -1289,11 +1304,7 @@ html {
   align-content: start;
   gap: 18px;
   min-width: 0;
-  padding: clamp(20px, 2.6vw, 28px);
-  overflow-y: auto;
-  background:
-    linear-gradient(180deg, rgba(12, 20, 24, 0.04), rgba(12, 20, 24, 0)),
-    color-mix(in srgb, var(--section-surface-bg) 68%, rgba(248, 243, 236, 0.08) 32%);
+  padding: 0;
 }
 
 .popup-card-modal__toolbar {
@@ -2257,7 +2268,7 @@ html {
     border-radius: 22px;
   }
 
-  .popup-card-modal__copy {
+  .popup-card-modal__copy-wrapper {
     padding: 18px;
   }
 

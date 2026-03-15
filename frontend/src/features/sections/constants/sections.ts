@@ -128,6 +128,47 @@ export const SECTIONS: FixedSection[] = [
     ],
     cards: [
       {
+        title: "Red Alert",
+        value: "Real-Time Event Monitoring",
+        description:
+          "Real-time alert-oriented application centered around event delivery, responsive UI updates, and live information flow.",
+        media: {
+          preview: {
+            kind: "video",
+            src: withBase("media/projects/red-alert-demo-1.mp4"),
+            alt: "Red alert demo preview",
+            mimeType: "video/mp4",
+          },
+          expanded: [
+            {
+              kind: "video",
+              src: withBase("media/projects/red-alert-demo-1.mp4"),
+              alt: "Red alert demo 1",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/red-alert-demo-2.mp4"),
+              alt: "Red alert demo 2",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/red-alert-demo-3.mp4"),
+              alt: "Red alert demo 3",
+              mimeType: "video/mp4",
+            },
+          ],
+        },
+        detailItems: [
+          "Built around fast event propagation and timely UI feedback",
+          "Handled dynamic state updates under time-sensitive conditions",
+          "Emphasized clarity, responsiveness, and practical real-time UX",
+        ],
+        colSpan: 5,
+        rowSpan: 3,
+      },
+      {
         title: "Task Manager",
         value: "Hierarchy Views + Full-Stack Architecture",
         description:
@@ -141,14 +182,34 @@ export const SECTIONS: FixedSection[] = [
             width: 2206,
             height: 1728,
           },
+          expanded: [
+            {
+              kind: "video",
+              src: withBase("media/projects/task-app-demo-1.mp4"),
+              alt: "Task app demo 1",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/task-app-demo-2.mp4"),
+              alt: "Task app demo 2",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/task-app-demo-3.mp4"),
+              alt: "Task app demo 3",
+              mimeType: "video/mp4",
+            },
+          ],
         },
         detailItems: [
           "Built authenticated REST flows for nested task operations and structured data updates",
           "Designed graph and tree interfaces for hierarchy-heavy planning and navigation",
           "Focused on state consistency, complex UI interaction, and maintainable frontend architecture",
         ],
-        colSpan: 5,
-        rowSpan: 3,
+        colSpan: 3,
+        rowSpan: 2,
       },
       {
         title: "TrackListings",
@@ -161,19 +222,6 @@ export const SECTIONS: FixedSection[] = [
           "Explored scalable architecture for search, enrichment, and operational tracking",
         ],
         colSpan: 3,
-        rowSpan: 2,
-      },
-      {
-        title: "Red Alert",
-        value: "Real-Time Event Monitoring",
-        description:
-          "Real-time alert-oriented application centered around event delivery, responsive UI updates, and live information flow.",
-        detailItems: [
-          "Built around fast event propagation and timely UI feedback",
-          "Handled dynamic state updates under time-sensitive conditions",
-          "Emphasized clarity, responsiveness, and practical real-time UX",
-        ],
-        colSpan: 4,
         rowSpan: 2,
       },
       {

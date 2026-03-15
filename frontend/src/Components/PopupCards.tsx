@@ -21,8 +21,8 @@ type PopupCardMediaAsset = {
 };
 
 type PopupCardMedia = {
-  preview?: PopupCardMediaAsset;
-  expanded?: PopupCardMediaAsset;
+  preview?: PopupCardMediaAsset | PopupCardMediaAsset[];
+  expanded?: PopupCardMediaAsset | PopupCardMediaAsset[];
 };
 
 export type PopupCardItem = {
@@ -97,11 +97,46 @@ function useEscapeToClose(enabled: boolean, onClose: () => void) {
   }, [enabled]);
 }
 
-function getExpandedMedia(card: PopupCardItem): PopupCardMediaAsset | undefined {
+function getExpandedMedia(card: PopupCardItem): PopupCardMediaAsset | PopupCardMediaAsset[] | undefined {
   return card.media?.expanded ?? card.media?.preview;
 }
 
+function getPreviewMedia(card: PopupCardItem): PopupCardMediaAsset | undefined {
+  const preview = card.media?.preview;
+  if (Array.isArray(preview)) {
+    return preview[0];
+  }
+  if (preview) {
+    return preview;
+  }
+  const expanded = getExpandedMedia(card);
+  if (Array.isArray(expanded)) {
+    return expanded[0];
+  }
+  return expanded;
+}
+
 function handlePreviewVideoLoaded(event: SyntheticEvent<HTMLVideoElement>) {
+  const video = event.currentTarget;
+
+  if (video.dataset.previewFrameReady === "true") {
+    return;
+  }
+
+  video.dataset.previewFrameReady = "true";
+
+  if (!Number.isFinite(video.duration) || video.duration <= 0.08) {
+    return;
+  }
+
+  try {
+    video.currentTime = 0.08;
+  } catch {
+    // Some browsers block seek attempts before enough data is ready.
+  }
+}
+
+function handlePreviewVideoCanPlay(event: SyntheticEvent<HTMLVideoElement>) {
   const video = event.currentTarget;
 
   if (video.dataset.previewFrameReady === "true") {
@@ -131,12 +166,16 @@ function PopupCardVideo({
   shouldPlay,
   alt,
   mode,
+  onEnded,
+  loop = true,
 }: {
   asset: PopupCardMediaAsset;
   className: string;
   shouldPlay: boolean;
   alt?: string;
   mode: "preview" | "expanded";
+  onEnded?: () => void;
+  loop?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -181,33 +220,47 @@ function PopupCardVideo({
       poster={asset.poster}
       muted
       playsInline
-      loop={shouldPlay}
+      loop={loop && shouldPlay}
       autoPlay={shouldPlay}
       preload="metadata"
       aria-label={alt}
       aria-hidden={mode === "preview"}
       tabIndex={-1}
       onLoadedData={!shouldPlay ? handlePreviewVideoLoaded : undefined}
+      onCanPlay={!shouldPlay ? handlePreviewVideoCanPlay : undefined}
+      onEnded={onEnded}
       disablePictureInPicture
       disableRemotePlayback
       controlsList="nodownload nofullscreen noplaybackrate noremoteplayback"
+      style={mode === "expanded" ? { objectFit: "contain", width: "100%", height: "100%" } : undefined}
     />
   );
 }
 
-function PopupCardMedia({
+function MediaRenderer({
   asset,
   mode,
   className,
   shouldPlay = false,
 }: {
-  asset?: PopupCardMediaAsset;
+  asset?: PopupCardMediaAsset | PopupCardMediaAsset[];
   mode: "preview" | "expanded";
   className: string;
   shouldPlay?: boolean;
 }) {
   if (!asset) {
     return <div className={`${className} ${className}--empty`} aria-hidden="true" />;
+  }
+
+  if (Array.isArray(asset)) {
+    return (
+      <CyclingMedia
+        assets={asset}
+        className={className}
+        shouldPlay={shouldPlay}
+        mode={mode}
+      />
+    );
   }
 
   if (isVideoAsset(asset)) {
@@ -234,6 +287,51 @@ function PopupCardMedia({
   );
 }
 
+function CyclingMedia({
+  assets,
+  className,
+  shouldPlay,
+  mode,
+}: {
+  assets: PopupCardMediaAsset[];
+  className: string;
+  shouldPlay: boolean;
+  mode: "preview" | "expanded";
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentAsset = assets[currentIndex];
+
+  const handleVideoEnd = () => {
+    setCurrentIndex((prev) => (prev + 1) % assets.length);
+  };
+
+  if (!isVideoAsset(currentAsset)) {
+    // For non-videos, just show the first one or cycle with timer
+    return (
+      <img
+        className={`${className} ${className}--image`}
+        src={currentAsset.src}
+        alt={mode === "expanded" ? currentAsset.alt : ""}
+        aria-hidden={mode === "preview"}
+        loading={mode === "expanded" ? "eager" : "lazy"}
+        draggable={false}
+      />
+    );
+  }
+
+  return (
+    <PopupCardVideo
+      asset={currentAsset}
+      className={className}
+      shouldPlay={shouldPlay}
+      alt={mode === "expanded" ? currentAsset.alt : undefined}
+      mode={mode}
+      onEnded={handleVideoEnd}
+      loop={false}
+    />
+  );
+}
+
 function FeaturedCardPreview({
   card,
   onOpen,
@@ -245,7 +343,7 @@ function FeaturedCardPreview({
   prefersReducedMotion: boolean;
   isActive: boolean;
 }) {
-  const previewMedia = card.media?.preview ?? getExpandedMedia(card);
+  const previewMedia = getPreviewMedia(card);
 
   return (
     <motion.button
@@ -260,7 +358,7 @@ function FeaturedCardPreview({
       transition={POPUP_CARD_TRANSITION}
     >
       <div className="popup-card__visual popup-card__visual--featured">
-        <PopupCardMedia asset={previewMedia} mode="preview" className="popup-card__media" />
+        <MediaRenderer asset={previewMedia} mode="preview" className="popup-card__media" />
       </div>
 
       <motion.div className="popup-card__copy popup-card__copy--featured" layoutId={`popup-card-copy-${card.id}`}>
@@ -292,7 +390,7 @@ function GalleryCardPreview({
   prefersReducedMotion: boolean;
   isActive: boolean;
 }) {
-  const previewMedia = card.media?.preview ?? getExpandedMedia(card);
+  const previewMedia = getPreviewMedia(card);
 
   return (
     <motion.button
@@ -307,7 +405,7 @@ function GalleryCardPreview({
       transition={POPUP_CARD_TRANSITION}
     >
       <div className="popup-card__visual popup-card__visual--gallery">
-        <PopupCardMedia asset={previewMedia} mode="preview" className="popup-card__media" />
+        <MediaRenderer asset={previewMedia} mode="preview" className="popup-card__media" />
       </div>
 
       <motion.div className="popup-card__copy popup-card__copy--gallery" layoutId={`popup-card-copy-${card.id}`}>
@@ -394,7 +492,7 @@ function ExpandedCard({
   prefersReducedMotion: boolean;
 }) {
   const expandedMedia = getExpandedMedia(card);
-  const shouldDelayExpandedPlayback = isVideoAsset(expandedMedia) && !prefersReducedMotion;
+  const shouldDelayExpandedPlayback = (Array.isArray(expandedMedia) ? expandedMedia.some(isVideoAsset) : isVideoAsset(expandedMedia)) && !prefersReducedMotion;
   const [shouldPlayExpandedMedia, setShouldPlayExpandedMedia] = useState(() => !shouldDelayExpandedPlayback);
 
   useEffect(() => {
@@ -445,7 +543,7 @@ function ExpandedCard({
         >
           {expandedMedia ? (
             <div className="popup-card-modal__visual">
-              <PopupCardMedia
+              <MediaRenderer
                 asset={expandedMedia}
                 mode="expanded"
                 className="popup-card-modal__media"
@@ -455,23 +553,27 @@ function ExpandedCard({
             </div>
           ) : null}
 
-          <motion.div className="popup-card-modal__copy" layoutId={`popup-card-copy-${card.id}`}>
-            <div className="popup-card-modal__toolbar">
-              {card.eyebrow ? <p className="popup-card-modal__eyebrow">{card.eyebrow}</p> : <span />}
-              <button
-                type="button"
-                className="popup-card-modal__close"
-                onClick={onClose}
-                aria-label={`Close ${card.title}`}
-              >
-                Close
-              </button>
-            </div>
+          <div className="popup-card-modal__copy-wrapper">
+            <motion.div 
+              className="popup-card-modal__copy" 
+              layoutId={`popup-card-copy-${card.id}`}
+            >
+              <div className="popup-card-modal__toolbar">
+                {card.eyebrow ? <p className="popup-card-modal__eyebrow">{card.eyebrow}</p> : <span />}
+                <button
+                  type="button"
+                  className="popup-card-modal__close"
+                  onClick={onClose}
+                  aria-label={`Close ${card.title}`}
+                >
+                  Close
+                </button>
+              </div>
 
-            <div className="popup-card-modal__heading">
-              <h3 id={`popup-card-modal-title-${card.id}`} className="popup-card-modal__title">
-                {card.title}
-              </h3>
+              <div className="popup-card-modal__heading">
+                <h3 id={`popup-card-modal-title-${card.id}`} className="popup-card-modal__title">
+                  {card.title}
+                </h3>
               <p className="popup-card-modal__subtitle">{card.subtitle}</p>
             </div>
 
@@ -487,8 +589,7 @@ function ExpandedCard({
                 </ul>
               </div>
             ) : null}
-          </motion.div>
-        </motion.article>
+          </motion.div>          </div>        </motion.article>
       </motion.div>
     </>
   );

@@ -9,8 +9,8 @@ export type SectionCardMediaAsset = {
 };
 
 export type SectionCardMedia = {
-  preview?: SectionCardMediaAsset;
-  expanded?: SectionCardMediaAsset;
+  preview?: SectionCardMediaAsset | SectionCardMediaAsset[];
+  expanded?: SectionCardMediaAsset | SectionCardMediaAsset[];
 };
 
 export type SectionCardKind = "experience-role" | "experience-focus";
