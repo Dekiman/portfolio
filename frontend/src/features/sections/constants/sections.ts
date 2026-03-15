@@ -119,8 +119,8 @@ export const SECTIONS: FixedSection[] = [
     id: "projects",
     title: "Projects",
     layout: "projects",
-    eyebrow: "Personal Project Gallery",
-    text: "Personal projects built to showcase full-stack architecture, real-time communication, data-heavy interfaces, live alerts, and analytical systems.",
+    eyebrow: "Project Gallery",
+    text: "Personal projects showcase.",
     highlights: [
       "Interactive product UIs",
       "Real-time event-driven systems",
@@ -266,8 +266,8 @@ export const SECTIONS: FixedSection[] = [
     ],
     cards: [
       {
-        title: "Freelance Web Developer",
-        value: "Sep 2025 - Present",
+        title: "Freelance",
+        value: "Web Developer · Sep 2025 - resent",
         description:
           "Built and improved production-facing web features, worked directly with stakeholders, and delivered practical product outcomes in React-based environments.",
         kind: "experience-role",
@@ -289,7 +289,7 @@ export const SECTIONS: FixedSection[] = [
         description:
           "Worked collaboratively with stakeholders in real time, solving problems while communicating tradeoffs and implementation choices clearly.",
         kind: "experience-focus",
-        colSpan: 4,
+        colSpan: 4,   
         rowSpan: 2,
       },
       {
