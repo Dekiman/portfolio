@@ -102,8 +102,8 @@ function getProjectCardEyebrow(card: SectionCard, index: number): string {
       return "Workflow study";
     case "Red Alert":
       return "Live alert demo";
-    case "Chat Application":
-      return "Realtime chat demo";
+    case "Boostify":
+      return "Real world application";
     case "Stock Prediction":
       return "Prediction experiment";
     default:
@@ -220,6 +220,7 @@ function AboutLayout({ section }: SectionLayoutRendererProps) {
   );
 }
 
+// Make the text based on added "surfaceTone"
 function ProjectsLayout({ section }: SectionLayoutRendererProps) {
   const projectCards: PopupCardItem[] = (section.cards ?? []).map(
     (card, index) => ({

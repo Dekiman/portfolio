@@ -176,7 +176,7 @@ export const SECTIONS: FixedSection[] = [
         media: {
           preview: {
             kind: "video",
-            src: withBase("media/projects/task-manager-preview.mp4"),
+            src: withBase("media/projects/task-app-demo-1.mp4"),
             alt: "Task manager hierarchy workflow demo",
             mimeType: "video/mp4",
             width: 2206,
@@ -225,32 +225,55 @@ export const SECTIONS: FixedSection[] = [
         rowSpan: 2,
       },
       {
-        title: "Chat Application",
-        value: "WebSockets + Presence",
+        title: "Boostify",
+        value: "Physical-to-Online Business Base44 App",
         description:
-          "Real-time messaging application with online presence, event-driven communication, and state-consistent frontend behavior.",
+          "Business application built with Base44 to help physical businesses establish an online presence, present their offering clearly, and move faster from offline operations to digital customer reach.",
+        media: {
+          preview: {
+            kind: "video",
+            src: withBase("media/projects/boostify-demo-1.mp4"),
+            alt: "Boostify business app demo",
+            mimeType: "video/mp4",
+          },
+          expanded: [
+            {
+              kind: "video",
+              src: withBase("media/projects/boostify-demo-1.mp4"),
+              alt: "Boostify demo 1",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/boostify-demo-2.mp4"),
+              alt: "Boostify demo 2",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/boostify-demo-3.mp4"),
+              alt: "Boostify demo 3",
+              mimeType: "video/mp4",
+            },
+            {
+              kind: "video",
+              src: withBase("media/projects/boostify-demo-4.mp4"),
+              alt: "Boostify demo 4",
+              mimeType: "video/mp4",
+            },
+          ],
+        },
         detailItems: [
-          "Live message delivery and presence updates over WebSockets",
-          "Responsive chat UI with synchronized client state",
-          "Backend event flows structured around real-time feedback",
+          "Built a fast business-facing app in Base44 for turning a physical business presence into an accessible online product",
+          "Focused on clear presentation, practical flow, and low-friction customer interaction for real business use",
+          "Designed for speed of delivery, useful structure, and a polished interface that supports digital business visibility",
         ],
         colSpan: 4,
         rowSpan: 2,
-      },
-      {
-        title: "Stock Prediction",
-        value: "Analytical / Data-Oriented Project",
-        description:
-          "Prediction-focused project exploring data processing, model-oriented thinking, and structured experimentation around financial signals.",
-        detailItems: [
-          "Worked through prediction workflow fundamentals and data reasoning",
-          "Combined programming with analytical modeling concepts",
-          "Strengthened understanding of data pipelines and evaluation logic",
-        ],
-        colSpan: 4,
-        rowSpan: 2,
+        
       },
     ],
+    surfaceTone: "light",
     minHeightVh: 118,
   },
   {
@@ -289,7 +312,7 @@ export const SECTIONS: FixedSection[] = [
         description:
           "Worked collaboratively with stakeholders in real time, solving problems while communicating tradeoffs and implementation choices clearly.",
         kind: "experience-focus",
-        colSpan: 4,   
+        colSpan: 4,
         rowSpan: 2,
       },
       {

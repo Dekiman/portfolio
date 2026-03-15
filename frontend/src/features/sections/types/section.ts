@@ -28,6 +28,8 @@ export type SectionCard = {
 
 export type SectionLayout = "home" | "about" | "projects" | "experience" | "contact";
 
+export type CardSurfaceTone = "light" | "dark";
+
 export type FixedSection = {
   id: string;
   title: string;
@@ -38,6 +40,7 @@ export type FixedSection = {
   cards?: SectionCard[];
   cta?: string;
   minHeightVh: number;
+  surfaceTone?: CardSurfaceTone;
 };
 
 export type SectionMetrics = {
