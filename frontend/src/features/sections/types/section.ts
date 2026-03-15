@@ -15,6 +15,8 @@ export type SectionCardMedia = {
 
 export type SectionCardKind = "experience-role" | "experience-focus";
 
+export type CardSurfaceTone = "light" | "dark";
+
 export type SectionCard = {
   title: string;
   value: string;
@@ -24,11 +26,11 @@ export type SectionCard = {
   media?: SectionCardMedia;
   colSpan?: number;
   rowSpan?: number;
+  surfaceTone?: CardSurfaceTone;
 };
 
 export type SectionLayout = "home" | "about" | "projects" | "experience" | "contact";
 
-export type CardSurfaceTone = "light" | "dark";
 
 export type FixedSection = {
   id: string;
@@ -41,6 +43,7 @@ export type FixedSection = {
   cta?: string;
   minHeightVh: number;
   surfaceTone?: CardSurfaceTone;
+  
 };
 
 export type SectionMetrics = {

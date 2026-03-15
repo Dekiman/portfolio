@@ -723,6 +723,10 @@ html {
   text-wrap: pretty;
 }
 
+.section-description--light {
+  color: var(--section-text-primary);
+}
+
 .section-highlights {
   list-style: none;
   margin: 18px 0 0;
@@ -1140,12 +1144,12 @@ html {
   letter-spacing: 0.1em;
 }
 
-.popup-card__title {
+.popup-card__title{
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.02;
-  color: rgba(255, 251, 247, 0.98);
+  
   text-wrap: balance;
 }
 
@@ -1155,8 +1159,10 @@ html {
 }
 
 .popup-card__title--gallery {
+  color: rgba(255, 251, 247, 0.98);
   font-size: clamp(1rem, 1.02vw, 1.08rem);
 }
+
 
 .popup-card__subtitle {
   margin: 0;
@@ -1174,6 +1180,9 @@ html {
   max-width: 22ch;
   font-size: 0.74rem;
   line-height: 1.32;
+}
+.light {
+  color: rgba(7, 16, 20, 0.98);
 }
 
 .popup-card__summary {
@@ -1198,6 +1207,10 @@ html {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: color var(--motion-standard), transform var(--motion-standard);
+}
+
+.light {
+  color: rgba(7, 16, 20, 0.98);
 }
 
 .popup-card__action::after {
@@ -1286,10 +1299,10 @@ html {
 .popup-card-modal__copy-wrapper {
   position: relative;
   z-index: 1;
-  background-color: rgba(20, 30, 35, 0.6) !important;
-  background:
+  background-color: rgba(226, 226, 226, 0.505) !important;
+  /* background:
     linear-gradient(180deg, rgba(248, 243, 236, 0.16), rgba(248, 243, 236, 0.08)),
-    rgba(12, 20, 24, 0.25) !important;
+    rgba(12, 20, 24, 0.25) !important; */
   display: grid;
   align-content: start;
   gap: 18px;

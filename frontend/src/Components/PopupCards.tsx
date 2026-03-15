@@ -25,6 +25,8 @@ type PopupCardMedia = {
   expanded?: PopupCardMediaAsset | PopupCardMediaAsset[];
 };
 
+type SurfaceToneType = "light" | "dark";
+
 export type PopupCardItem = {
   id: string;
   eyebrow?: string;
@@ -34,6 +36,7 @@ export type PopupCardItem = {
   detailItems?: string[];
   media?: PopupCardMedia;
   featured?: boolean;
+  surfaceTone?: SurfaceToneType;
 };
 
 type PopupCardsProps = {
@@ -389,6 +392,7 @@ function GalleryCardPreview({
   onOpen: () => void;
   prefersReducedMotion: boolean;
   isActive: boolean;
+  surfaceTone?: SurfaceToneType;
 }) {
   const previewMedia = getPreviewMedia(card);
 
@@ -412,11 +416,11 @@ function GalleryCardPreview({
         {card.eyebrow ? <p className="popup-card__eyebrow popup-card__eyebrow--gallery">{card.eyebrow}</p> : null}
 
         <div className="popup-card__headline popup-card__headline--gallery">
-          <h3 className="popup-card__title popup-card__title--gallery">{card.title}</h3>
-          <p className="popup-card__subtitle popup-card__subtitle--gallery">{card.subtitle}</p>
+          <h3 className={`popup-card__title ${card.surfaceTone} popup-card__title--gallery`}>{card.title}</h3>
+          <p className={`popup-card__subtitle ${card.surfaceTone} popup-card__subtitle--gallery`}>{card.subtitle}</p>
         </div>
 
-        <span className="popup-card__action popup-card__action--gallery" aria-hidden="true">
+        <span className={`popup-card__action ${card.surfaceTone} popup-card__action--gallery`} aria-hidden="true">
           Open build
         </span>
       </motion.div>
@@ -475,6 +479,7 @@ function PopupCardsLayout({
             onOpen={() => {
               onOpen(card.id);
             }}
+            surfaceTone={card.surfaceTone}
           />
         ))}
       </div>

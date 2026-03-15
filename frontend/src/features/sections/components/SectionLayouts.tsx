@@ -111,6 +111,7 @@ function getProjectCardEyebrow(card: SectionCard, index: number): string {
   }
 }
 
+
 function HomeLayout({ section, variantIndex }: SectionLayoutRendererProps) {
   return (
     <div className={`section-content section-content--${variantIndex}`}>
@@ -232,6 +233,7 @@ function ProjectsLayout({ section }: SectionLayoutRendererProps) {
       detailItems: card.detailItems,
       media: card.media,
       featured: index === 0,
+      surfaceTone: card.surfaceTone,
     }),
   );
 
@@ -241,7 +243,7 @@ function ProjectsLayout({ section }: SectionLayoutRendererProps) {
         {section.eyebrow ? (
           <p className="section-eyebrow">{section.eyebrow}</p>
         ) : null}
-        <p className="section-description">{section.text}</p>
+        <p className={`section-description--${section.surfaceTone}`}>{section.text}</p>
       </header>
 
       <PopupCards

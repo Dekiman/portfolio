@@ -226,7 +226,7 @@ export const SECTIONS: FixedSection[] = [
       },
       {
         title: "Boostify",
-        value: "Physical-to-Online Business Base44 App",
+        value: "Physical-to-Online-Business Base44 App",
         description:
           "Business application built with Base44 to help physical businesses establish an online presence, present their offering clearly, and move faster from offline operations to digital customer reach.",
         media: {
@@ -270,10 +270,10 @@ export const SECTIONS: FixedSection[] = [
         ],
         colSpan: 4,
         rowSpan: 2,
+        surfaceTone: "light",
         
       },
     ],
-    surfaceTone: "light",
     minHeightVh: 118,
   },
   {
