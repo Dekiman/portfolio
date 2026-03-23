@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Build output and caches
+dist/
+dist-ssr/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+vite-dev*.log
+.vite-dev.*
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Debug, traces, generated artifacts and unused 
+artifacts/
+tmp-*.json
+*.trace.json
+*.heapsnapshot
+*.cpuprofile
+backend/
+
+# Local AI/tooling files
+.agents/
+skills-lock.json
+AGENTS.md
+CLAUDE.md
+mcp.json
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
