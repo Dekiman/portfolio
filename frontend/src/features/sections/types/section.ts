@@ -29,7 +29,7 @@ export type SectionCard = {
   surfaceTone?: CardSurfaceTone;
 };
 
-export type SectionLayout = "home" | "about" | "projects" | "experience" | "contact";
+export type SectionLayout = "about" | "projects" | "experience" | "contact";
 
 
 export type FixedSection = {

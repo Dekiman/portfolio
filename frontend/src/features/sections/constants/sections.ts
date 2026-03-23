@@ -6,114 +6,64 @@ function withBase(path: string): string {
 
 export const SECTIONS: FixedSection[] = [
   {
-    id: "home",
-    title: "Home",
-    layout: "home",
-    eyebrow: "Gal Mankedi",
-    text: "Full-stack developer building modern TypeScript products end to end, from polished React interfaces and interactive data views to backend APIs, real-time systems, and production-minded architecture.",
-    highlights: [
-      "React + TypeScript + Node.js",
-      "Full-stack product architecture",
-      "Real-time + data-heavy systems",
-    ],
-    cards: [
-      {
-        title: "Current Focus",
-        value: "Full-Stack Product Engineering",
-        description:
-          "Building end-to-end web products with strong frontend architecture, backend systems, and practical product ownership.",
-        colSpan: 6,
-        rowSpan: 3,
-      },
-      {
-        title: "Core Stack",
-        value: "React · TypeScript · Node.js",
-        description:
-          "Typed frontend and backend development with emphasis on maintainability, performance, and delivery.",
-        colSpan: 3,
-        rowSpan: 2,
-      },
-      {
-        title: "Strength",
-        value: "Architecture + Problem Solving",
-        description:
-          "Strong CS and math thinking applied to real systems, data flow, debugging, and feature design.",
-        colSpan: 3,
-        rowSpan: 2,
-      },
-      {
-        title: "Education",
-        value: "Technion — Mathematics & CS",
-        description:
-          "Two years completed in a rigorous Mathematics and Computer Science track.",
-        colSpan: 4,
-        rowSpan: 2,
-      },
-      {
-        title: "Location",
-        value: "Tel Aviv Area",
-        description:
-          "Open to full-time roles, freelance work, and strong product-focused collaborations.",
-        colSpan: 4,
-        rowSpan: 2,
-      },
-    ],
-    minHeightVh: 100,
-  },
-  {
     id: "about",
     title: "About",
     layout: "about",
-    eyebrow: "Profile",
-    text: "I build full-stack applications with clear architecture, strong UI thinking, and reliable implementation. I am comfortable owning interactive frontend systems, backend APIs, real-time features, and the data flow between them.",
+    eyebrow: "Gal Mankedi",
+    text: "Full-stack developer building TypeScript products from polished React interfaces to backend services, APIs, and real-time workflows.\n\nBest when owning the path from product experience to contracts, state, and delivery.",
     highlights: [
-      "Strong product ownership",
-      "Frontend architecture + backend systems",
-      "Fast learner with analytical depth",
+      "End-to-end product ownership",
+      "React frontends, APIs, and live state",
+      "Data-heavy and interaction-rich UI work",
+      "Clear, delivery-focused collaboration",
     ],
     cards: [
       {
-        title: "Languages",
-        value: "TypeScript · Python · C++",
+        title: "Focus",
+        value: "Full-stack product engineering",
         description:
-          "Strong coding foundation across application development, scripting, and analytical problem solving.",
-        colSpan: 4,
-        rowSpan: 2,
+          "Own product work from interface decisions to backend contracts and delivery.",
+        detailItems: [
+          "Ship across frontend architecture, backend contracts, and release quality",
+          "Prefer work with clear product scope and visible user impact",
+          "Strongest when I can carry decisions through implementation",
+        ],
       },
       {
-        title: "Frontend",
-        value: "React · Vite · Tailwind · Zustand",
+        title: "Stack",
+        value: "React, TypeScript, Node.js, Python",
         description:
-          "Component systems, custom hooks, state management, responsive UI, animation, and data-dense interaction design.",
-        colSpan: 4,
-        rowSpan: 3,
+          "Primary tools for shipped web products, supporting services, and workflow tooling.",
+        detailItems: [
+          "React, Vite, Tailwind CSS, Motion",
+          "Node.js, Express, PostgreSQL, REST APIs",
+          "WebSockets, auth flows, and stateful client-server features",
+          "Python for tooling, scripting, and data-oriented work",
+        ],
       },
       {
-        title: "Backend",
-        value: "Node.js · Express · APIs · Auth",
+        title: "Strengths",
+        value: "UI systems, APIs, real-time workflows",
         description:
-          "REST API design, authentication flows, server-side architecture, and reliable end-to-end feature implementation.",
-        colSpan: 4,
-        rowSpan: 2,
+          "Comfortable across component architecture, auth, data flow, and live updates.",
+        detailItems: [
+          "Component systems, custom hooks, and dense interaction design",
+          "Clear API contracts and reliable client-server state flow",
+          "Debugging across UI behavior, network logic, and backend boundaries",
+        ],
       },
       {
-        title: "Data & Architecture",
-        value: "State Flow · API Contracts · Debugging",
+        title: "Education",
+        value: "Technion, Mathematics & Computer Science",
         description:
-          "Comfortable reasoning about data models, client-server boundaries, app structure, and scalable implementation patterns.",
-        colSpan: 6,
-        rowSpan: 2,
-      },
-      {
-        title: "Real-Time Systems",
-        value: "WebSockets · Live State",
-        description:
-          "Built real-time features such as live messaging, online presence, and state-consistent UI flows.",
-        colSpan: 3,
-        rowSpan: 2,
+          "Completed two years in a rigorous Mathematics and Computer Science track.",
+        detailItems: [
+          "Built a strong foundation in formal reasoning and problem decomposition",
+          "Learned to work through high-constraint technical problems with rigor",
+        ],
       },
     ],
-    minHeightVh: 106,
+    minHeightVh: 98,
   },
   {
     id: "projects",
@@ -274,7 +224,7 @@ export const SECTIONS: FixedSection[] = [
         
       },
     ],
-    minHeightVh: 118,
+    minHeightVh: 104,
   },
   {
     id: "experience",
@@ -325,7 +275,7 @@ export const SECTIONS: FixedSection[] = [
         rowSpan: 2,
       },
     ],
-    minHeightVh: 108,
+    minHeightVh: 98,
   },
   {
     id: "contact",
@@ -365,12 +315,8 @@ export const SECTIONS: FixedSection[] = [
         rowSpan: 2,
       },
     ],
-    minHeightVh: 96,
+    minHeightVh: 88,
   },
 ];
 
 export const SECTION_NAMES = SECTIONS.map((section) => section.title);
-
-export const DOWN_VISIBLE_TRIGGER_RATIO = 0.25;
-export const UP_VISIBLE_TRIGGER_RATIO = 0.2;
-export const AUTO_SCROLL_DURATION_MS = 850;

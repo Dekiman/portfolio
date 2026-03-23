@@ -1,6 +1,6 @@
-import type { CSSProperties, JSX } from "react";
-import { PopupCards, type PopupCardItem } from "../../../Components/PopupCards";
-import { TypewriterText } from "../../../Components/TypewriterText";
+import { useMemo, type CSSProperties, type JSX } from "react";
+import { PopupCards, type PopupCardItem } from "../../projects/components/PopupCards";
+import { TypewriterText } from "../../../ui/typography/TypewriterText";
 import type {
   FixedSection,
   SectionCard,
@@ -111,120 +111,132 @@ function getProjectCardEyebrow(card: SectionCard, index: number): string {
   }
 }
 
+function getTextParagraphs(text: string): string[] {
+  return text
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
 
-function HomeLayout({ section, variantIndex }: SectionLayoutRendererProps) {
+function splitIntoColumns<T>(items: readonly T[], columnCount: number): T[][] {
+  const columns = Array.from({ length: columnCount }, () => [] as T[]);
+
+  items.forEach((item, index) => {
+    columns[index % columnCount]?.push(item);
+  });
+
+  return columns;
+}
+
+function AboutLayout({ section, variantIndex }: SectionLayoutRendererProps) {
+  const textParagraphs = getTextParagraphs(section.text);
+  const isLeadSection = variantIndex === 1;
+  const highlights = section.highlights ?? [];
+  const cards = section.cards ?? [];
+  const factColumns = useMemo(() => splitIntoColumns(cards, 2), [cards]);
+
   return (
-    <div className={`section-content section-content--${variantIndex}`}>
-      {section.eyebrow ? (
-        <h1 className="section-title section-title--hero">
-          <TypewriterText
-            text={section.eyebrow}
-            className="section-title__typed"
-            characterDelay={0.085}
-            initialDelay={0.15}
-            showCursor
-          />
-        </h1>
-      ) : null}
-      <p className="section-description whitespace-pre-line">{section.text}</p>
-      {section.highlights && section.highlights.length > 0 ? (
-        <ul
-          className="section-highlights"
-          aria-label={`${section.title} strengths`}
-        >
-          {section.highlights.map((highlight, index) => (
-            <li
-              key={highlight}
-              className="section-highlights__item"
-              style={getRevealDelayStyle(index)}
+    <div className="about-layout">
+      <header
+        className={`about-layout__intro${isLeadSection ? " about-layout__intro--lead" : ""}`}
+      >
+        {isLeadSection ? (
+          <p className="section-eyebrow">{section.title}</p>
+        ) : null}
+
+        {section.eyebrow ? (
+          isLeadSection ? (
+            <h1 className="section-title section-title--hero">
+              <TypewriterText
+                text={section.eyebrow}
+                className="section-title__typed"
+                characterDelay={0.085}
+                initialDelay={0.15}
+                showCursor
+              />
+            </h1>
+          ) : (
+            <p className="section-eyebrow">{section.eyebrow}</p>
+          )
+        ) : null}
+
+        <div className="about-layout__copy">
+          {textParagraphs.map((paragraph, index) => (
+            <p
+              key={`${section.id}-paragraph-${index + 1}`}
+              className="section-description"
             >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </header>
+
+      {highlights.length > 0 ? (
+        <ul
+          className="about-layout__highlights"
+          aria-label={`${section.title} highlights`}
+        >
+          {highlights.map((highlight, index) => (
+            <li key={highlight} style={getRevealDelayStyle(index)}>
               {highlight}
             </li>
           ))}
         </ul>
       ) : null}
-      {section.cards && section.cards.length > 0 ? (
-        <div
-          className="section-cards"
-          aria-label={`${section.title} quick facts`}
-        >
-          {section.cards.map((card) => (
-            <article
-              key={`${section.id}-${card.title}`}
-              className="section-card"
-            >
-              <p className="section-card__title">{card.title}</p>
-              <InlineExpandableText
-                value={card.value}
-                description={card.description}
-                valueClassName="section-card__value"
-                descriptionClassName="section-card__description"
-                wrapperClassName="mt-1"
-              />
-            </article>
-          ))}
-        </div>
-      ) : null}
-      {section.cta ? <p className="section-cta">{section.cta}</p> : null}
-    </div>
-  );
-}
 
-function AboutLayout({ section }: SectionLayoutRendererProps) {
-  return (
-    <div className="about-layout">
-      <header className="about-layout__intro">
-        {section.eyebrow ? (
-          <p className="section-eyebrow">{section.eyebrow}</p>
-        ) : null}
-        <p className="section-description">{section.text}</p>
-      </header>
-
-      <div className="about-layout__body">
-        <aside className="about-layout__signals">
-          <p className="about-layout__label">What I Bring</p>
-          <ul
-            className="about-layout__highlights"
-            aria-label={`${section.title} highlights`}
-          >
-            {(section.highlights ?? []).map((highlight, index) => (
-              <li key={highlight} style={getRevealDelayStyle(index)}>
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        <div
-          className="about-layout__cards"
+      {cards.length > 0 ? (
+        <dl
+          className="about-layout__facts"
           aria-label={`${section.title} key details`}
         >
-          {(section.cards ?? []).map((card) => (
-            <article
-              key={`${section.id}-${card.title}`}
-              className="about-layout__card"
+          {factColumns.map((column, columnIndex) => (
+            <div
+              key={`${section.id}-fact-column-${columnIndex + 1}`}
+              className="about-layout__fact-column"
             >
-              <p className="about-layout__card-title">{card.title}</p>
+              {column.map((card) => {
+                const hasDetails = (card.detailItems?.length ?? 0) > 0;
 
-              <InlineExpandableText
-                value={card.value}
-                description={card.description}
-                valueClassName="about-layout__card-value"
-                descriptionClassName="about-layout__card-description"
-                wrapperClassName="mt-1"
-              />
-            </article>
+                return (
+                  <div
+                    key={`${section.id}-${card.title}`}
+                    className={`about-layout__fact${hasDetails ? " about-layout__fact--interactive" : ""}`}
+                    tabIndex={hasDetails ? 0 : undefined}
+                  >
+                    <dt className="about-layout__card-title">{card.title}</dt>
+                    <dd className="about-layout__fact-copy">
+                      <p className="about-layout__card-value">{card.value}</p>
+                      <p className="about-layout__card-description">
+                        {card.description}
+                      </p>
+
+                      {hasDetails ? (
+                        <div className="about-layout__fact-details">
+                          <div className="about-layout__fact-details-inner">
+                            <ul className="about-layout__fact-detail-list">
+                              {card.detailItems?.map((detail) => (
+                                <li key={`${card.title}-${detail}`}>{detail}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      ) : null}
+                    </dd>
+                  </div>
+                );
+              })}
+            </div>
           ))}
-        </div>
-      </div>
+        </dl>
+      ) : null}
     </div>
   );
 }
 
-// Make the text based on added "surfaceTone"
 function ProjectsLayout({ section }: SectionLayoutRendererProps) {
-  const projectCards: PopupCardItem[] = (section.cards ?? []).map(
-    (card, index) => ({
+  const projectCards = useMemo<PopupCardItem[]>(
+    () => (section.cards ?? []).map((card, index) => ({
       id: toPopupCardId(section.id, card.title),
       eyebrow: getProjectCardEyebrow(card, index),
       title: card.title,
@@ -234,7 +246,8 @@ function ProjectsLayout({ section }: SectionLayoutRendererProps) {
       media: card.media,
       featured: index === 0,
       surfaceTone: card.surfaceTone,
-    }),
+    })),
+    [section.cards, section.id],
   );
 
   return (
@@ -243,7 +256,7 @@ function ProjectsLayout({ section }: SectionLayoutRendererProps) {
         {section.eyebrow ? (
           <p className="section-eyebrow">{section.eyebrow}</p>
         ) : null}
-        <p className={`section-description--${section.surfaceTone}`}>{section.text}</p>
+        <p className="section-description">{section.text}</p>
       </header>
 
       <PopupCards
@@ -488,7 +501,6 @@ function ContactLayout({ section }: SectionLayoutRendererProps) {
 
 // Layout registry keeps section shell stable while enabling richer per-section components over time.
 const SECTION_LAYOUT_RENDERERS: Record<SectionLayout, SectionLayoutRenderer> = {
-  home: HomeLayout,
   about: AboutLayout,
   projects: ProjectsLayout,
   experience: ExperienceLayout,

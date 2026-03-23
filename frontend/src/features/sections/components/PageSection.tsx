@@ -6,14 +6,12 @@ type PageSectionProps = {
   section: FixedSection;
   sectionIndex: number;
   onSectionRef: SectionRefSetter;
-  isRevealed: boolean;
 };
 
 export function PageSection({
   section,
   sectionIndex,
   onSectionRef,
-  isRevealed,
 }: PageSectionProps) {
   const variantIndex = sectionIndex + 1;
 
@@ -29,12 +27,8 @@ export function PageSection({
         onSectionRef(sectionIndex, node);
       }}
     >
-      <div
-        className={`section-layout-wrap section-layout-wrap--${section.layout}${
-          isRevealed ? " section-layout-wrap--revealed" : ""
-        }`}
-      >
-        {isRevealed ? <SectionLayout section={section} variantIndex={variantIndex} /> : null}
+      <div className={`section-layout-wrap section-layout-wrap--${section.layout}`}>
+        <SectionLayout section={section} variantIndex={variantIndex} />
       </div>
     </section>
   );

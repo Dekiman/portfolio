@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 type TypewriterTextProps = {
   text: string;

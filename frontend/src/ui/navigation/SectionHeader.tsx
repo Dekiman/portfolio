@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { HeaderIcon, type HeaderIconKind } from "./HeaderIcon";
-import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 type SectionHeaderProps = {
   sectionNames: string[];
@@ -27,7 +27,7 @@ function getSectionIcon(sectionName: string): HeaderIconKind {
   return SECTION_ICONS[sectionName.toLowerCase()] ?? "home";
 }
 
-export function SectionHeader({
+export const SectionHeader = memo(function SectionHeader({
   sectionNames,
   activeIndex,
   onSectionClick,
@@ -56,8 +56,11 @@ export function SectionHeader({
     const applyIndicatorMetrics = () => {
       const navRect = navNode.getBoundingClientRect();
       const labelRect = activeLabel.getBoundingClientRect();
-      const indicatorLeft = labelRect.left - navRect.left + navNode.scrollLeft;
-      const indicatorTop = labelRect.top - navRect.top + navNode.scrollTop;
+      // Absolute positioning is resolved from the nav padding box, not its border box.
+      const indicatorLeft =
+        labelRect.left - navRect.left - navNode.clientLeft;
+      const indicatorTop =
+        labelRect.top - navRect.top - navNode.clientTop;
 
       indicatorNode.style.width = `${labelRect.width}px`;
       indicatorNode.style.height = `${labelRect.height}px`;
@@ -206,4 +209,4 @@ export function SectionHeader({
       {children}
     </nav>
   );
-}
+});
